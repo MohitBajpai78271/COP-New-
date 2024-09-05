@@ -8,7 +8,7 @@
 import UIKit
 
 class OTPViewController: UIViewController{
-     
+    
     @IBOutlet weak var otpText1: UITextField!
     @IBOutlet weak var otpText2: UITextField!
     @IBOutlet weak var otpText3: UITextField!
@@ -20,30 +20,32 @@ class OTPViewController: UIViewController{
     
     var phoneNumber : String?
     
+    
+    let alertHelper = AlertManager.shared
+
+    var otpVerification : Bool = false
+    
     var timer : Timer?
     var remainingSeconds = 120
+    let url = "http://93.127.172.217:4000"
+    var authservice = AuthService()
     
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        otpText1.delegate = self
-        otpText2.delegate = self
-        otpText3.delegate = self
-        otpText4.delegate = self
-        otpText5.delegate = self
-        otpText6.delegate = self
-        
+   
         otpTextFieldSetUp()
-    
         startTimer()
-        
         resendButton.isHidden = true
+        phoneNumber = UserDefaults.standard.string(forKey: "userPhoneNumber") ?? UserDefaults.standard.string(forKey: "phoneNumberSignUp")
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = true
     }
     
- 
     @IBAction func verifyPressed(_ sender: UIButton) {
-        guard let otp1 = otpText1.text,
+        guard  let otp1 = otpText1.text,
               let otp2 = otpText2.text,
               let otp3 = otpText3.text,
               let otp4 = otpText4.text,
@@ -51,39 +53,47 @@ class OTPViewController: UIViewController{
               let otp6 = otpText6.text,
               !otp1.isEmpty, !otp2.isEmpty, !otp3.isEmpty, !otp4.isEmpty, !otp5.isEmpty, !otp6.isEmpty,
               let phoneNumber = phoneNumber else {
-            showSnackBar(message: "Please enter the full OTP")
+            self.alertHelper.showAlert(on: self, message: "Please enter the full OTP")
             return
         }
-        
         let otp = otp1 + otp2 + otp3 + otp4 + otp5 + otp6
+        let fullphoneNumber = "+91\(phoneNumber)"
+        verifyOtp(phoneNumber: fullphoneNumber, otp: otp)
+        print(fullphoneNumber)
+    }
+    
+    private func verifyOtp(phoneNumber: String, otp: String) {
         
-        AuthService.shared.existingUser(phoneNumber: phoneNumber, otp: otp) { response, error in
-            DispatchQueue.main.async {
-                if let error = error {
-                    self.showSnackBar(message: "Failed to verify OTP: \(error.localizedDescription)")
-                    return
-                }
-                
-                if let response = response {
-                    self.showSnackBar(message: response.msg)
-                    if response.success {
-                        // Navigate based on user role if needed
-                        // Perform your navigation here
+        authservice.verifyOtp(phoneNumber: phoneNumber, otp: otp, isSignUp: UserData.shared.isSignup) { result in
+            switch result {
+            case .success:
+                DispatchQueue.main.async {
+                    self.otpVerification = true
+                    if self.otpVerification{
+                        self.handleOTPVerification()
+                    }else{
+                        print("otp verification failed")
                     }
-                } else {
-                    self.showSnackBar(message: "No response received or data couldn't be decoded")
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self.alertHelper.showAlert(on: self, message: error.localizedDescription)
                 }
             }
+            
         }
     }
     
-    func showSnackBar(message: String) {
-        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
-    }
     
     func otpTextFieldSetUp(){
+        
+        otpText1.delegate = self
+        otpText2.delegate = self
+        otpText3.delegate = self
+        otpText4.delegate = self
+        otpText5.delegate = self
+        otpText6.delegate = self
+        
         
         otpText1.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         otpText2.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
@@ -94,6 +104,26 @@ class OTPViewController: UIViewController{
         
     }
     @IBAction func resendButtonTapped(_ sender: UIButton) {
+        let phoneNumber = UserData.shared.phoneNumber!
+        let fullphoneNumber = "+91\(phoneNumber)"
+        AuthService.shared.getOTP(phoneNumber: fullphoneNumber) { response, error in
+            DispatchQueue.main.async {
+                if let error = error {
+                    self.alertHelper.showAlert(on: self, message: "Failed to generate OTP: \(error.localizedDescription)")
+                    return
+                }
+                
+                if let response = response {
+                    if response .success {
+                        print("otp resend successfully")
+                        
+                    }  else {
+                        self.alertHelper.showAlert(on: self, message:  "No response received or data couldn't be decoded")
+                    }
+                }
+            }
+        }
+        
         startTimer()
     }
     
@@ -154,11 +184,28 @@ class OTPViewController: UIViewController{
             resendButton.isHidden = false
         }
     }
-    
-}
-extension OTPViewController:UITextFieldDelegate{
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
+    private func handleOTPVerification() {
+        if UserData.shared.isSignup{
+            self.performSegue(withIdentifier: K.seguetoUserDetails , sender: self)
+        }else{
+            do{
+                UserDefaults.standard.set(true, forKey: "isLoggedIn")
+                UserDefaults.standard.synchronize()
+                
+                let isLoggedIn = UserDefaults.standard.bool(forKey: "isLoggedIn")
+                print("isLoggedIn after setting: \(isLoggedIn)")
+                DispatchQueue.main.async {
+                    self.performSegue(withIdentifier: "segueToTab", sender: self)
+                }
+            }
+        }
     }
 }
+    
+    extension OTPViewController:UITextFieldDelegate{
+        func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+            textField.resignFirstResponder()
+            return true
+        }
+    }
+

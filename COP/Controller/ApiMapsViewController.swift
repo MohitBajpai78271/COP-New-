@@ -22,9 +22,9 @@ class ApiMapsViewController: UIViewController{
     
     @IBOutlet weak var dateText: UILabel!
     var crimes: [Crime] = []
+    var crimesLabel: UILabel!
     
     var datePicker: UIDatePicker!
-    
     private var transparentView : UIView?
     
     var locationManager = CLLocationManager()
@@ -34,6 +34,7 @@ class ApiMapsViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupCrimeLabel()
         
         criimeTypeButton.delegate = self
         policeStationButton.delegate = self
@@ -44,6 +45,35 @@ class ApiMapsViewController: UIViewController{
         underLinetexts()
         
         setupMapView()
+        setupLocationManager()
+        showOptions()
+      
+        fetchCrimeData(selectedDate: nil)
+    }
+    
+    func showOptions(){
+        criimeTypeButton.options = CrimesAndPoliceStations.crimeType
+        policeStationButton.options = CrimesAndPoliceStations.policeStationPlace
+        
+    }
+    
+    func setupCrimeLabel(){
+        
+        crimesLabel = UILabel()
+        crimesLabel.text = "Crimes: 0"
+        crimesLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        crimesLabel.textColor = UIColor.label
+        crimesLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(crimesLabel)
+    
+    NSLayoutConstraint.activate([
+          crimesLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+          crimesLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+      ])
+      
+    }
+    
+    func setupLocationManager(){
         
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -51,17 +81,11 @@ class ApiMapsViewController: UIViewController{
         locationManager.requestAlwaysAuthorization()
         locationManager.startUpdatingLocation()
         
-        criimeTypeButton.options = CrimesAndPoliceStations.crimeType
-        policeStationButton.options = CrimesAndPoliceStations.policeStationPlace
-        
-        mapView.showsUserLocation = true
-        
-        fetchCrimeData()
     }
-    
     func setupMapView() {
         mapView.delegate = self
-        // Set initial location to somewhere in Delhi
+        
+        mapView.showsUserLocation = true
         let initialLocation = CLLocationCoordinate2D(latitude: 28.748633, longitude: 77.114327)
         mapView.setRegion(MKCoordinateRegion(center: initialLocation, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)), animated: true)
     }
@@ -91,29 +115,31 @@ class ApiMapsViewController: UIViewController{
     
     @IBAction func calenderButtonPressed(_ sender: UIButton) {
         
-        let alertController = UIAlertController(title: "Select Date", message: nil, preferredStyle:.alert)
-        alertController.view.addSubview(datePicker)
-        
-        alertController.addAction(UIAlertAction(title: "Reset", style: .cancel) { [weak self] _ in
-            guard let self = self else { return }
-            self.dateText.text = "No date selected"
-            self.datePicker.date = Date()
-            self.fetchCrimeData()
-        })
-        
-        alertController.addAction(UIAlertAction(title: "Done", style: .default) { [weak self] _ in
-            guard let self = self else{return}
-            let selectedDate = self.datePicker.date
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd"
-            let formattedDate = dateFormatter.string(from: selectedDate)
-            self.dateText.text = formattedDate
-            self.fetchCrimeData()
-        })
-        present(alertController,animated: true){
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
-             self.view.window?.addGestureRecognizer(tapGesture)
-        }
+             let alertController = UIAlertController(title: "Select Date", message: nil, preferredStyle: .alert)
+                alertController.view.addSubview(datePicker)
+                
+                alertController.addAction(UIAlertAction(title: "Reset", style: .cancel) { [weak self] _ in
+                    guard let self = self else { return }
+                    self.dateText.text = "No date selected"
+                    self.datePicker.date = Date()
+                    self.fetchCrimeData(selectedDate: nil)
+                })
+                
+                alertController.addAction(UIAlertAction(title: "Done", style: .default) { [weak self] _ in
+                    guard let self = self else { return }
+                    let selectedDate = self.datePicker.date
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd"
+                    let formattedDate = dateFormatter.string(from: selectedDate)
+                    self.dateText.text = formattedDate
+                    self.fetchCrimeData(selectedDate: formattedDate)
+                })
+                
+                present(alertController, animated: true) { [weak self] in
+                    guard let self = self else { return }
+                    self.tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+                    alertController.view.superview?.addGestureRecognizer(self.tapGesture!)
+                }
     }
     @objc func dismissAlertController(){
         self.dismiss(animated: true, completion: nil)
@@ -124,67 +150,61 @@ class ApiMapsViewController: UIViewController{
     
     //MARK: - FetchCrimeData and Add Annotation
     
-    func fetchCrimeData(){
-        
-//        let date = dateText.text ?? "No Date Selected"
-        guard let date = dateText.text else {
-                    print("Please provide date")
-                    return
-                }
-          let place = policeStationLabel.text ?? "All"
-          let crimeType = crimTypeLabel.text ?? "All"
+    func fetchCrimeData(selectedDate: String?) {
+        let place = policeStationLabel.text ?? "All"
+        let crimeType = crimTypeLabel.text ?? "All"
 
-//        print("\(String(describing: date)) and \(String(describing: place)) and \(String(describing: crimeType)) ")
-//                let apiUrl = "http://93.127.172.217:4000/view-data/crimedata"
+        // Prepare parameters based on current filters
         var parameters: [String: String] = [:]
-        if date != "No date selected" {
-                parameters["date"] = date
-            }
-            if place != "All" {
-                parameters["place"] = place
-            }
-            if crimeType != "All" {
-                parameters["crimeType"] = crimeType
-            }
+        if let date = selectedDate, date != "No date selected" {
+            parameters["date"] = date
+        }
+        if place != "All" {
+            parameters["place"] = place
+        }
+        if crimeType != "All" {
+            parameters["crimeType"] = crimeType
+        }
         
-        var components = URLComponents(string: "http://93.127.172.217:4000/view-data/crimedata")!
-        components.queryItems = parameters.isEmpty ? nil : parameters.map { URLQueryItem(name: $0.key, value: $0.value) }
+        showLoadingView(mapview: mapView)
         
-        guard let apiUrl = components.url else {
-               print("Invalid URL")
-               return
-           }
 
-//        print("Request URL: \(apiUrl2.absoluteString)")
-        
-        
-        AF.request(apiUrl,parameters: parameters).responseDecodable(of: [Crime].self) { response in
-            switch response.result{
+        // Construct URL with parameters
+        var components = URLComponents(string: "\(ApiKeys.baseURL)/view-data/crimedata")!
+        components.queryItems = parameters.isEmpty ? nil : parameters.map { URLQueryItem(name: $0.key, value: $0.value) }
+
+        guard let apiUrl = components.url else {return }
+
+        AF.request(apiUrl, parameters: parameters).responseDecodable(of: [Crime].self) { response in
+            
+            self.dismissLoadingView()
+
+            switch response.result {
             case .success(let crimes):
                 self.crimes = crimes
-                print("Fetched crimes: ")
-                for crime in crimes {
-                    print("Crime: \(crime.crimeType) on \(crime.date) at \(crime.beat)")
-                }
-                
-                let filteredCrimes = crimes.filter { crime in
-                            let matchDate = (date == "No Date Selected") || (crime.date == date)
-                            let matchPlace = (place == "All") || (crime.beat == place)
-                            let matchCrimeType = (crimeType == "All") || (crime.crimeType == crimeType)
-                            return matchDate && matchPlace && matchCrimeType
-                        }
 
-                DispatchQueue.main.async{
+                let filteredCrimes = crimes.filter { crime in
+                             let crimeTypeFromAPI = crime.crimeType.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+                             let filteredCrimeType = crimeType.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+
+                             let matchDate = selectedDate == nil || crime.date == selectedDate
+                             let matchPlace = place == "All" || crime.beat == place
+                             let matchCrimeType = filteredCrimeType == "all" || crimeTypeFromAPI == filteredCrimeType
+                             
+                             return matchDate && matchPlace && matchCrimeType
+                         }
+                
+                DispatchQueue.main.async {
                     self.addCrimeAnnotations(crimes: filteredCrimes)
+                    self.crimesLabel.text = "Crimes: \(filteredCrimes.count)"
                 }
             case .failure(let error):
                 if let data = response.data {
                     _ = String(data: data, encoding: .utf8) ?? "Unknown error"
                     print("Request failed with error: \(error.localizedDescription), server message: ")
                 } else {
-                    print("Request failed with error: minin")
+                    print("Request failed with error: \(error.localizedDescription)")
                 }
-                // Handle specific network errors (e.g., check for non-200 status code)
                 if let response = response.response {
                     print("Network response code: \(response.statusCode)")
                 }
@@ -192,15 +212,15 @@ class ApiMapsViewController: UIViewController{
         }
     }
     
-    
     func addCrimeAnnotations(crimes : [Crime]) {
         mapView.removeAnnotations(mapView.annotations)
         
-
-        mapView.removeAnnotations(mapView.annotations)
-        
         for crime in crimes {
-              let coordinate = CLLocationCoordinate2D(latitude: Double(crime.latitude) ?? 0.0, longitude: Double(crime.longitude) ?? 0.0)
+            guard let latitude = Double(crime.latitude), let longitude = Double(crime.longitude) else {
+                       print("Invalid coordinates for crime: \(crime)")
+                       continue
+                   }
+              let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
               let annotation = MKPointAnnotation()
               annotation.coordinate = coordinate
               annotation.title = crime.crimeType
@@ -238,7 +258,8 @@ extension ApiMapsViewController: dropDownButtonDelegate{
         }else if button == policeStationButton{
             policeStationLabel.text = option
         }
-        fetchCrimeData()
+        let date : String? = dateText.text == "No date selected" ? nil : dateText.text
+        fetchCrimeData(selectedDate: date)
     }
 
 }
@@ -250,7 +271,6 @@ extension ApiMapsViewController : CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
             currentLocation = location
-//            print("updated locn : \(location.coordinate.latitude) and \(location.coordinate.longitude)")
             if !hasCentredOnUser {
                 mapView.setRegion(MKCoordinateRegion(center: location.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)), animated: true)
                 hasCentredOnUser = true
@@ -264,9 +284,6 @@ extension ApiMapsViewController : CLLocationManagerDelegate{
             locationManager.requestWhenInUseAuthorization()
         case .restricted, .denied:
             print("Location access was restricted")
-//            let alert = UIAlertController(title: "Location Access Denied", message: "Location access is required to show crime markers on the map. Please enable location services in settings.", preferredStyle: .alert)
-//            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-//            self.present(alert, animated: true,completion: nil)
         case .authorizedWhenInUse, .authorizedAlways:
             locationManager.startUpdatingLocation()
         @unknown default:
@@ -295,35 +312,27 @@ extension ApiMapsViewController: MKMapViewDelegate{
             annotationView?.annotation = annotation
         }
         
-        if let crimeType = annotation.title {// let title = annotation.title,
+        if let crimeType = annotation.title {   // let title = annotation.title,
                 
                 switch crimeType {
-                case "Burglary":
+                    
+                case "BURGLARY":
                     annotationView?.markerTintColor = .red
-                case "M V Theft":
+                case "MV THEFT":
                     annotationView?.markerTintColor = .orange
-                case "Snatching":
+                case "SNATCHING":
                     annotationView?.markerTintColor = .purple
-                case "House Theft":
+                case "HOUSE THEFT":
                     annotationView?.markerTintColor = .green
-                case "Robbery":
+                case "ROBBERY":
                     annotationView?.markerTintColor = .blue
                 default:
-                    annotationView?.markerTintColor = .gray
+                    annotationView?.markerTintColor = .yellow
                 }
             }
             
             
             return annotationView
         }
-        
-        //    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        //        if let location = locations.last{
-        //            //            print("\(location.coordinate.latitude) and \(location.coordinate.longitude)")
-        //            let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
-        //            mapView.setRegion(region, animated: true)
-        //        }
-        //    }
-        
     }
 

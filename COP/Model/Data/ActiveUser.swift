@@ -14,7 +14,6 @@ struct ActiveUser: Codable {
     let areas: [String]
     let dutyStartTime: String
     let dutyEndTime: String
-//    let token : String
     
     enum CodingKeys: String, CodingKey {
         case id = "_id"
@@ -23,6 +22,5 @@ struct ActiveUser: Codable {
         case areas
         case dutyStartTime
         case dutyEndTime
-//        case token
     }
 }

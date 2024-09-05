@@ -80,6 +80,8 @@ Submit feature suggestions through the app's feedback section or contact us dire
 For further questions or support, contact us at ekanshbhushan@gmail.com or +91 9643654899.
 By using the COP App, you agree to these Terms and our Privacy Policy. If you have any concerns or queries, please reach out to us
 
+
+
 """
         
         let attributedString = NSMutableAttributedString(string: fullTextFaq)

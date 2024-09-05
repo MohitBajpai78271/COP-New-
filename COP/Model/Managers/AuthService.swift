@@ -1,17 +1,9 @@
-//
-//  AuthService.swift
-//  ConstableOnPatrol
-//
-//  Created by Mac on 15/07/24.
-//
-
 import UIKit
 import Alamofire
 
 class AuthService{
     
     static let shared = AuthService()
-    let baseURL = "http://93.127.172.217:4000"
     private let session = URLSession.shared
     private let storage = UserDefaults.standard
     
@@ -34,7 +26,7 @@ class AuthService{
     //MARK: - Get OTP
     
     func getOTP(phoneNumber: String,completion: @escaping(OTPResponse?, Error?)->Void){
-        let urlString = "\(baseURL)/api/send-otp"
+        let urlString = "\(ApiKeys.baseURL)/api/send-otp"
         
         let parameters: [String: Any] = ["phoneNumber": phoneNumber]
         
@@ -60,7 +52,7 @@ class AuthService{
     
     func verifyOtp(phoneNumber: String, otp: String, isSignUp: Bool, completion: @escaping (Result<Void, Error>) -> Void) {
         let endpoint = isSignUp ? "/api/verify-otp" : "/api/verify-otp-signIn"
-          guard let url = URL(string: "\(baseURL)\(endpoint)") else {
+        guard let url = URL(string: "\(ApiKeys.baseURL)\(endpoint)") else {
               completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
               return
           }
@@ -118,6 +110,10 @@ class AuthService{
                                      // Store token in UserDefaults
                                      UserDefaults.standard.set(address, forKey: "address")
                                  }
+                                 if let phoneNumber = jsonResponse["phoneNumber"] as? String{
+                                     print("Token from response : \(phoneNumber)")
+                                     UserDefaults.standard.set(phoneNumber, forKey: "phoneNumber")
+                                 }
                                  
                              }
                          } catch {
@@ -143,7 +139,7 @@ class AuthService{
      }
     
     func existingUser(phoneNumber: String, otp: String, completion: @escaping (OTPResponse?, Error?) -> Void) {
-        let url = URL(string: "\(baseURL)/api/verify-otp-signIn")!
+        let url = URL(string: "\(ApiKeys.baseURL)/api/verify-otp-signIn")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -180,7 +176,7 @@ class AuthService{
         
         let okAction = UIAlertAction(title: "OK", style: .default) { _ in
             // Logout implementation
-            guard let url = URL(string: "http://93.127.172.217:4000/api/logout") else {
+            guard let url = URL(string: "\(ApiKeys.baseURL)/api/logout") else {
                 print("Invalid URL")
                 return
             }
@@ -196,7 +192,7 @@ class AuthService{
             }
             
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            // Add any required headers, e.g., authorization token
+            
             if let token = UserDefaults.standard.string(forKey: "x-auth-token") {
                 request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
             }
@@ -219,6 +215,7 @@ class AuthService{
                         UserDefaults.standard.removeObject(forKey: "userName")
                         UserDefaults.standard.removeObject(forKey: "dateOfBirth")
                         UserDefaults.standard.removeObject(forKey: "address")
+                        UserDefaults.standard.removeObject(forKey: "phoneNumber")
                         UserDefaults.standard.set(false, forKey: "isLoggedIn")
                         UserDefaults.standard.synchronize()
                         
@@ -226,14 +223,13 @@ class AuthService{
                         
                         // Go back to signIn page
                         DispatchQueue.main.async {
-                            // Setting the root view controller to SignInViewController
                             if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
                                let window = appDelegate.window {
                                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                                let signInVC = storyboard.instantiateViewController(withIdentifier: "SignInViwController") // Ensure the identifier matches your storyboard
+                                let signInVC = storyboard.instantiateViewController(withIdentifier: "SignInViwController")
                                 window.rootViewController = UINavigationController(rootViewController: signInVC)
                                 window.makeKeyAndVisible()
-                                context.performSegue(withIdentifier: "SegueToSignin", sender: context)
+                                context.performSegue(withIdentifier: K.logoutSegue, sender: context)
                             }
                             
                             self.showSnackBar(context: context, message: "User logged out successfully")
@@ -277,16 +273,17 @@ class AuthService{
     //MARK: - Create User
     
     func createUser(context: UIViewController, userName: String, phoneNumber: String, dateOfBirth: String, gender: String, address: String, completion: @escaping () -> Void) {
-        let url = URL(string: "http://93.127.172.217:4000/users/user-token")!
+        
+        let url = URL(string: "\(ApiKeys.baseURL)/users/user-token")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
         
-        // Creating the user dictionary with all required fields
+        // Creating the user dictionary
         let user: [String: Any] = [
-            "userRole": "", // Ensure this is set if required by the API
-            "id": "",       // Ensure this is set if required by the API
-            "token": "",    // Ensure this is set if required by the API
+            "userRole": "",
+            "id": "",
+            "token": "",    
             "userName": userName,
             "phoneNumber": phoneNumber,
             "gender": gender,
@@ -304,7 +301,6 @@ class AuthService{
             return
         }
         
-        // Perform the network request
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             // Check for network errors
             if let error = error {
@@ -322,7 +318,6 @@ class AuthService{
                 return
             }
             
-            // Check if data is received
             guard let data = data else {
                 DispatchQueue.main.async {
                     self.showSnackBar(context: context, message: "No data received from server")
@@ -330,7 +325,6 @@ class AuthService{
                 return
             }
             
-            // Parse the JSON response
             do {
                 if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                     if let token = json["token"] as? String, let userRole = json["userRole"] as? String  {
@@ -341,7 +335,6 @@ class AuthService{
                         
                         DispatchQueue.main.async {
                             self.showSnackBar(context: context, message: "User created successfully")
-//                            context.performSegue(withIdentifier: "detailsToTab", sender: context)
                             completion()
                         }
                     } else {
@@ -368,7 +361,7 @@ class AuthService{
             return
         }
 
-        let url = URL(string: "http://93.127.172.217:4000/user-tokenIsValid")!
+        let url = URL(string: "\(ApiKeys.baseURL)/users/user-tokenIsValid")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue(token, forHTTPHeaderField: "x-auth-token")
@@ -376,6 +369,7 @@ class AuthService{
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
                 completion(.failure(error))
+                print(error.localizedDescription)
                 return
             }
 
@@ -387,6 +381,7 @@ class AuthService{
             do {
                 if let userData = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                     // Save the user data to UserDefaults
+                    print("User data received")
                     if let phoneNumber = userData["phoneNumber"] as? String {
                         UserDefaults.standard.set(phoneNumber, forKey: "phoneNumber")
                     }
@@ -404,21 +399,25 @@ class AuthService{
                     completion(.success(userData))
                 } else {
                     completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid user data"])))
+                    print("Not able to find")
                 }
             } catch {
                 completion(.failure(error))
+                print("can't try")
+                print(error.localizedDescription)
             }
         }
 
         task.resume()
     }
     func updateUser(context: UIViewController, phoneNumber: String, userName: String, address: String, dateOfBirth: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        
         guard let token = UserDefaults.standard.string(forKey: "x-auth-token") else {
             showSnackBar(context: context, message: "No token found")
             return
         }
 
-        let url = URL(string: "http://93.127.172.217:4000/update-userdata")!
+        let url = URL(string: "\(ApiKeys.baseURL)/update-userdata")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
@@ -434,7 +433,6 @@ class AuthService{
         do {
             request.httpBody = try JSONSerialization.data(withJSONObject: updateData, options: [])
         } catch {
-            showSnackBar(context: context, message: "Failed to create update request body")
             completion(.failure(error))
             return
         }
@@ -442,7 +440,6 @@ class AuthService{
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
                 DispatchQueue.main.async {
-                    self.showSnackBar(context: context, message: "Failed to update user data")
                     completion(.failure(error))
                 }
                 return
@@ -450,29 +447,15 @@ class AuthService{
 
             guard let httpResponse = response as? HTTPURLResponse else {
                 DispatchQueue.main.async {
-                    self.showSnackBar(context: context, message: "Invalid server response")
                     completion(.failure(NSError(domain: "", code: -1, userInfo: nil)))
                 }
                 return
             }
 
             if httpResponse.statusCode == 200 {
-                DispatchQueue.main.async {
-                    // Fetch the updated user data
-                    self.getUserData(context: context) { result in
-                        switch result {
-                        case .success:
-                            self.showSnackBar(context: context, message: "Profile updated successfully")
-                            completion(.success(()))
-                        case .failure(let error):
-                            self.showSnackBar(context: context, message: "Failed to fetch updated user data")
-                            completion(.failure(error))
-                        }
-                    }
-                }
+                print("done successfully")
             } else {
                 DispatchQueue.main.async {
-                    self.showSnackBar(context: context, message: "Failed to update user data")
                     completion(.failure(NSError(domain: "", code: httpResponse.statusCode, userInfo: nil)))
                 }
             }
@@ -482,12 +465,10 @@ class AuthService{
     }
 
     }
+
+
 extension Dictionary {
     func toJsonData() -> Data? {
         return try? JSONSerialization.data(withJSONObject: self, options: [])
     }
 }
-
-//"http://93.127.172.217:4000/update-userdata"
-//http://93.127.172.217:4000/user-tokenIsValid"
-//http://93.127.172.217:4000/user-token

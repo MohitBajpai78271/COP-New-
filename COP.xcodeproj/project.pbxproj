@@ -7,23 +7,96 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0433B84B2C59E52600F06CAC /* TabBarVC2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0433B84A2C59E52600F06CAC /* TabBarVC2ViewController.swift */; };
 		043E59CD2C4D59EC00757A63 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E59CC2C4D59EC00757A63 /* AppDelegate.swift */; };
 		043E59CF2C4D59EC00757A63 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E59CE2C4D59EC00757A63 /* SceneDelegate.swift */; };
-		043E59D12C4D59EC00757A63 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E59D02C4D59EC00757A63 /* ViewController.swift */; };
-		043E59D42C4D59EC00757A63 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 043E59D32C4D59EC00757A63 /* Base */; };
 		043E59D62C4D59ED00757A63 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 043E59D52C4D59ED00757A63 /* Assets.xcassets */; };
 		043E59D92C4D59ED00757A63 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 043E59D82C4D59ED00757A63 /* Base */; };
+		043E59FD2C4D5A5900757A63 /* AboutUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E59E02C4D5A5900757A63 /* AboutUsViewController.swift */; };
+		043E59FE2C4D5A5900757A63 /* Admin View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E59E12C4D5A5900757A63 /* Admin View Controller.swift */; };
+		043E59FF2C4D5A5900757A63 /* ApiMapsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E59E22C4D5A5900757A63 /* ApiMapsViewController.swift */; };
+		043E5A002C4D5A5900757A63 /* FAQsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E59E32C4D5A5900757A63 /* FAQsViewController.swift */; };
+		043E5A012C4D5A5900757A63 /* OTPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E59E42C4D5A5900757A63 /* OTPViewController.swift */; };
+		043E5A022C4D5A5900757A63 /* PrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E59E52C4D5A5900757A63 /* PrivacyViewController.swift */; };
+		043E5A032C4D5A5900757A63 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E59E62C4D5A5900757A63 /* ProfileViewController.swift */; };
+		043E5A042C4D5A5900757A63 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E59E72C4D5A5900757A63 /* SettingsViewController.swift */; };
+		043E5A052C4D5A5900757A63 /* SignInViwController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E59E82C4D5A5900757A63 /* SignInViwController.swift */; };
+		043E5A062C4D5A5900757A63 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E59E92C4D5A5900757A63 /* SignUpViewController.swift */; };
+		043E5A072C4D5A5900757A63 /* termsAndConditionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E59EA2C4D5A5900757A63 /* termsAndConditionViewController.swift */; };
+		043E5A082C4D5A5900757A63 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E59EC2C4D5A5900757A63 /* AuthService.swift */; };
+		043E5A092C4D5A5900757A63 /* CreateUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E59ED2C4D5A5900757A63 /* CreateUser.swift */; };
+		043E5A0A2C4D5A5900757A63 /* Crime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E59EE2C4D5A5900757A63 /* Crime.swift */; };
+		043E5A0B2C4D5A5900757A63 /* CrimeAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E59EF2C4D5A5900757A63 /* CrimeAnnotation.swift */; };
+		043E5A0C2C4D5A5900757A63 /* CrimesAndPoliceStations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E59F02C4D5A5900757A63 /* CrimesAndPoliceStations.swift */; };
+		043E5A0D2C4D5A5900757A63 /* dropDownButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E59F12C4D5A5900757A63 /* dropDownButton.swift */; };
+		043E5A0F2C4D5A5900757A63 /* OSMResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E59F32C4D5A5900757A63 /* OSMResponse.swift */; };
+		043E5A102C4D5A5900757A63 /* OTPResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E59F42C4D5A5900757A63 /* OTPResponse.swift */; };
+		043E5A112C4D5A5900757A63 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E59F52C4D5A5900757A63 /* UserData.swift */; };
+		043E5A122C4D5A5900757A63 /* UserProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E59F62C4D5A5900757A63 /* UserProvider.swift */; };
+		043E5A132C4D5A5900757A63 /* VerifyOTPResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E59F72C4D5A5900757A63 /* VerifyOTPResponse.swift */; };
+		043E5A152C4D5A5900757A63 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 043E59FB2C4D5A5900757A63 /* Main.storyboard */; };
+		043E5A1A2C4ECE6B00757A63 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E5A192C4ECE6B00757A63 /* User.swift */; };
+		047A56BF2C6342F500E92BA0 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A56BE2C6342F500E92BA0 /* AlertManager.swift */; };
+		047A56C42C6351E000E92BA0 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 047A56C32C6351E000E92BA0 /* Alamofire */; };
+		047A56C92C636B3000E92BA0 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A56C82C636B3000E92BA0 /* EmptyStateView.swift */; };
+		047D22232C4FFF4A00E7C4E5 /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047D22222C4FFF4A00E7C4E5 /* Messages.swift */; };
+		047D22252C500AEE00E7C4E5 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047D22242C500AEE00E7C4E5 /* MessageCell.swift */; };
+		04B369762C509E26004B9C9E /* ActiveUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B369752C509E26004B9C9E /* ActiveUser.swift */; };
+		04B601812C56A1520020C2BE /* UserDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B601802C56A1520020C2BE /* UserDetailsViewController.swift */; };
+		04B601832C56A8F90020C2BE /* FloatingLabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B601822C56A8F90020C2BE /* FloatingLabelTextField.swift */; };
+		04CA8F3F2C6222FA0086CE44 /* UIViewControllerExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CA8F3E2C6222FA0086CE44 /* UIViewControllerExt.swift */; };
+		04CA8F472C624AD20086CE44 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CA8F462C624AD20086CE44 /* K.swift */; };
+		04D866C62C523831006A300B /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D866C52C523831006A300B /* LocationViewController.swift */; };
+		04D866C82C5239CD006A300B /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D866C72C5239CD006A300B /* Location.swift */; };
+		04D866CA2C52C575006A300B /* LocationOfUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D866C92C52C575006A300B /* LocationOfUser.swift */; };
+		04E0F6EA2C898FD800972E2C /* ApiKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E0F6E92C898FD800972E2C /* ApiKeys.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0433B84A2C59E52600F06CAC /* TabBarVC2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarVC2ViewController.swift; sourceTree = "<group>"; };
 		043E59C92C4D59EC00757A63 /* COP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = COP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		043E59CC2C4D59EC00757A63 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		043E59CE2C4D59EC00757A63 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		043E59D02C4D59EC00757A63 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		043E59D32C4D59EC00757A63 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		043E59D52C4D59ED00757A63 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		043E59D82C4D59ED00757A63 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		043E59DA2C4D59ED00757A63 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		043E59E02C4D5A5900757A63 /* AboutUsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutUsViewController.swift; sourceTree = "<group>"; };
+		043E59E12C4D5A5900757A63 /* Admin View Controller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Admin View Controller.swift"; sourceTree = "<group>"; };
+		043E59E22C4D5A5900757A63 /* ApiMapsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiMapsViewController.swift; sourceTree = "<group>"; };
+		043E59E32C4D5A5900757A63 /* FAQsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FAQsViewController.swift; sourceTree = "<group>"; };
+		043E59E42C4D5A5900757A63 /* OTPViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTPViewController.swift; sourceTree = "<group>"; };
+		043E59E52C4D5A5900757A63 /* PrivacyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
+		043E59E62C4D5A5900757A63 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		043E59E72C4D5A5900757A63 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		043E59E82C4D5A5900757A63 /* SignInViwController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViwController.swift; sourceTree = "<group>"; };
+		043E59E92C4D5A5900757A63 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		043E59EA2C4D5A5900757A63 /* termsAndConditionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = termsAndConditionViewController.swift; sourceTree = "<group>"; };
+		043E59EC2C4D5A5900757A63 /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		043E59ED2C4D5A5900757A63 /* CreateUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateUser.swift; sourceTree = "<group>"; };
+		043E59EE2C4D5A5900757A63 /* Crime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Crime.swift; sourceTree = "<group>"; };
+		043E59EF2C4D5A5900757A63 /* CrimeAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrimeAnnotation.swift; sourceTree = "<group>"; };
+		043E59F02C4D5A5900757A63 /* CrimesAndPoliceStations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrimesAndPoliceStations.swift; sourceTree = "<group>"; };
+		043E59F12C4D5A5900757A63 /* dropDownButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dropDownButton.swift; sourceTree = "<group>"; };
+		043E59F32C4D5A5900757A63 /* OSMResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSMResponse.swift; sourceTree = "<group>"; };
+		043E59F42C4D5A5900757A63 /* OTPResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTPResponse.swift; sourceTree = "<group>"; };
+		043E59F52C4D5A5900757A63 /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		043E59F62C4D5A5900757A63 /* UserProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProvider.swift; sourceTree = "<group>"; };
+		043E59F72C4D5A5900757A63 /* VerifyOTPResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyOTPResponse.swift; sourceTree = "<group>"; };
+		043E59FA2C4D5A5900757A63 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		043E5A192C4ECE6B00757A63 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		047A56BE2C6342F500E92BA0 /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
+		047A56C82C636B3000E92BA0 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
+		047D22222C4FFF4A00E7C4E5 /* Messages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messages.swift; sourceTree = "<group>"; };
+		047D22242C500AEE00E7C4E5 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
+		04B369752C509E26004B9C9E /* ActiveUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveUser.swift; sourceTree = "<group>"; };
+		04B601802C56A1520020C2BE /* UserDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsViewController.swift; sourceTree = "<group>"; };
+		04B601822C56A8F90020C2BE /* FloatingLabelTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingLabelTextField.swift; sourceTree = "<group>"; };
+		04CA8F3E2C6222FA0086CE44 /* UIViewControllerExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExt.swift; sourceTree = "<group>"; };
+		04CA8F462C624AD20086CE44 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
+		04D866C52C523831006A300B /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
+		04D866C72C5239CD006A300B /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		04D866C92C52C575006A300B /* LocationOfUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationOfUser.swift; sourceTree = "<group>"; };
+		04E0F6E92C898FD800972E2C /* ApiKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiKeys.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +104,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				047A56C42C6351E000E92BA0 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,13 +132,129 @@
 			children = (
 				043E59CC2C4D59EC00757A63 /* AppDelegate.swift */,
 				043E59CE2C4D59EC00757A63 /* SceneDelegate.swift */,
-				043E59D02C4D59EC00757A63 /* ViewController.swift */,
-				043E59D22C4D59EC00757A63 /* Main.storyboard */,
+				043E59F82C4D5A5900757A63 /* Model */,
+				043E59FC2C4D5A5900757A63 /* View */,
+				043E59EB2C4D5A5900757A63 /* Controller */,
 				043E59D52C4D59ED00757A63 /* Assets.xcassets */,
 				043E59D72C4D59ED00757A63 /* LaunchScreen.storyboard */,
 				043E59DA2C4D59ED00757A63 /* Info.plist */,
 			);
 			path = COP;
+			sourceTree = "<group>";
+		};
+		043E59EB2C4D5A5900757A63 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				043E59E82C4D5A5900757A63 /* SignInViwController.swift */,
+				043E59E92C4D5A5900757A63 /* SignUpViewController.swift */,
+				043E59E42C4D5A5900757A63 /* OTPViewController.swift */,
+				04B601802C56A1520020C2BE /* UserDetailsViewController.swift */,
+				043E59E22C4D5A5900757A63 /* ApiMapsViewController.swift */,
+				043E59E12C4D5A5900757A63 /* Admin View Controller.swift */,
+				04D866C52C523831006A300B /* LocationViewController.swift */,
+				043E59E62C4D5A5900757A63 /* ProfileViewController.swift */,
+				043E59E72C4D5A5900757A63 /* SettingsViewController.swift */,
+				04CA8F432C6248910086CE44 /* ScrollViews */,
+				04CA8F422C6248710086CE44 /* TabBar */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		043E59F82C4D5A5900757A63 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				04CA8F412C6248560086CE44 /* Managers */,
+				04CA8F442C6249A10086CE44 /* Utilities */,
+				047A56C72C636AAF00E92BA0 /* Data */,
+				04CA8F452C624AB20086CE44 /* Constants */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		043E59FC2C4D5A5900757A63 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				043E59FB2C4D5A5900757A63 /* Main.storyboard */,
+				04CA8F402C6248060086CE44 /* CustomCell */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		047A56C72C636AAF00E92BA0 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				043E59ED2C4D5A5900757A63 /* CreateUser.swift */,
+				043E59EE2C4D5A5900757A63 /* Crime.swift */,
+				043E59F32C4D5A5900757A63 /* OSMResponse.swift */,
+				043E59F42C4D5A5900757A63 /* OTPResponse.swift */,
+				043E59F62C4D5A5900757A63 /* UserProvider.swift */,
+				043E59F72C4D5A5900757A63 /* VerifyOTPResponse.swift */,
+				043E5A192C4ECE6B00757A63 /* User.swift */,
+				047D22222C4FFF4A00E7C4E5 /* Messages.swift */,
+				04B369752C509E26004B9C9E /* ActiveUser.swift */,
+				04D866C72C5239CD006A300B /* Location.swift */,
+				04D866C92C52C575006A300B /* LocationOfUser.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		04CA8F402C6248060086CE44 /* CustomCell */ = {
+			isa = PBXGroup;
+			children = (
+				047D22242C500AEE00E7C4E5 /* MessageCell.swift */,
+			);
+			path = CustomCell;
+			sourceTree = "<group>";
+		};
+		04CA8F412C6248560086CE44 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				043E59EC2C4D5A5900757A63 /* AuthService.swift */,
+				047A56BE2C6342F500E92BA0 /* AlertManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		04CA8F422C6248710086CE44 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				0433B84A2C59E52600F06CAC /* TabBarVC2ViewController.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		04CA8F432C6248910086CE44 /* ScrollViews */ = {
+			isa = PBXGroup;
+			children = (
+				043E59EA2C4D5A5900757A63 /* termsAndConditionViewController.swift */,
+				043E59E32C4D5A5900757A63 /* FAQsViewController.swift */,
+				043E59E52C4D5A5900757A63 /* PrivacyViewController.swift */,
+				043E59E02C4D5A5900757A63 /* AboutUsViewController.swift */,
+			);
+			path = ScrollViews;
+			sourceTree = "<group>";
+		};
+		04CA8F442C6249A10086CE44 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				043E59EF2C4D5A5900757A63 /* CrimeAnnotation.swift */,
+				043E59F12C4D5A5900757A63 /* dropDownButton.swift */,
+				043E59F52C4D5A5900757A63 /* UserData.swift */,
+				04B601822C56A8F90020C2BE /* FloatingLabelTextField.swift */,
+				04CA8F3E2C6222FA0086CE44 /* UIViewControllerExt.swift */,
+				043E59F02C4D5A5900757A63 /* CrimesAndPoliceStations.swift */,
+				047A56C82C636B3000E92BA0 /* EmptyStateView.swift */,
+				04E0F6E92C898FD800972E2C /* ApiKeys.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		04CA8F452C624AB20086CE44 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				04CA8F462C624AD20086CE44 /* K.swift */,
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +273,9 @@
 			dependencies = (
 			);
 			name = COP;
+			packageProductDependencies = (
+				047A56C32C6351E000E92BA0 /* Alamofire */,
+			);
 			productName = COP;
 			productReference = 043E59C92C4D59EC00757A63 /* COP.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +304,9 @@
 				Base,
 			);
 			mainGroup = 043E59C02C4D59EC00757A63;
+			packageReferences = (
+				047A56C22C6351E000E92BA0 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = 043E59CA2C4D59EC00757A63 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -126,8 +322,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				043E59D62C4D59ED00757A63 /* Assets.xcassets in Resources */,
+				043E5A152C4D5A5900757A63 /* Main.storyboard in Resources */,
 				043E59D92C4D59ED00757A63 /* Base in Resources */,
-				043E59D42C4D59EC00757A63 /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,8 +334,44 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				043E59D12C4D59EC00757A63 /* ViewController.swift in Sources */,
+				043E5A1A2C4ECE6B00757A63 /* User.swift in Sources */,
+				04B369762C509E26004B9C9E /* ActiveUser.swift in Sources */,
+				047A56C92C636B3000E92BA0 /* EmptyStateView.swift in Sources */,
+				04CA8F3F2C6222FA0086CE44 /* UIViewControllerExt.swift in Sources */,
+				043E5A072C4D5A5900757A63 /* termsAndConditionViewController.swift in Sources */,
+				043E59FD2C4D5A5900757A63 /* AboutUsViewController.swift in Sources */,
+				043E5A042C4D5A5900757A63 /* SettingsViewController.swift in Sources */,
+				043E5A0A2C4D5A5900757A63 /* Crime.swift in Sources */,
+				04E0F6EA2C898FD800972E2C /* ApiKeys.swift in Sources */,
+				0433B84B2C59E52600F06CAC /* TabBarVC2ViewController.swift in Sources */,
+				04B601832C56A8F90020C2BE /* FloatingLabelTextField.swift in Sources */,
+				04CA8F472C624AD20086CE44 /* K.swift in Sources */,
+				043E5A032C4D5A5900757A63 /* ProfileViewController.swift in Sources */,
+				043E5A002C4D5A5900757A63 /* FAQsViewController.swift in Sources */,
+				047A56BF2C6342F500E92BA0 /* AlertManager.swift in Sources */,
+				04B601812C56A1520020C2BE /* UserDetailsViewController.swift in Sources */,
+				043E59FE2C4D5A5900757A63 /* Admin View Controller.swift in Sources */,
+				043E5A012C4D5A5900757A63 /* OTPViewController.swift in Sources */,
+				043E5A102C4D5A5900757A63 /* OTPResponse.swift in Sources */,
+				047D22232C4FFF4A00E7C4E5 /* Messages.swift in Sources */,
+				043E5A022C4D5A5900757A63 /* PrivacyViewController.swift in Sources */,
 				043E59CD2C4D59EC00757A63 /* AppDelegate.swift in Sources */,
+				047D22252C500AEE00E7C4E5 /* MessageCell.swift in Sources */,
+				04D866C62C523831006A300B /* LocationViewController.swift in Sources */,
+				043E5A0B2C4D5A5900757A63 /* CrimeAnnotation.swift in Sources */,
+				043E59FF2C4D5A5900757A63 /* ApiMapsViewController.swift in Sources */,
+				043E5A052C4D5A5900757A63 /* SignInViwController.swift in Sources */,
+				043E5A082C4D5A5900757A63 /* AuthService.swift in Sources */,
+				043E5A0C2C4D5A5900757A63 /* CrimesAndPoliceStations.swift in Sources */,
+				043E5A0D2C4D5A5900757A63 /* dropDownButton.swift in Sources */,
+				043E5A112C4D5A5900757A63 /* UserData.swift in Sources */,
+				043E5A122C4D5A5900757A63 /* UserProvider.swift in Sources */,
+				043E5A062C4D5A5900757A63 /* SignUpViewController.swift in Sources */,
+				043E5A132C4D5A5900757A63 /* VerifyOTPResponse.swift in Sources */,
+				043E5A0F2C4D5A5900757A63 /* OSMResponse.swift in Sources */,
+				043E5A092C4D5A5900757A63 /* CreateUser.swift in Sources */,
+				04D866CA2C52C575006A300B /* LocationOfUser.swift in Sources */,
+				04D866C82C5239CD006A300B /* Location.swift in Sources */,
 				043E59CF2C4D59EC00757A63 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -147,20 +379,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		043E59D22C4D59EC00757A63 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				043E59D32C4D59EC00757A63 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		043E59D72C4D59ED00757A63 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				043E59D82C4D59ED00757A63 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		043E59FB2C4D5A5900757A63 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				043E59FA2C4D5A5900757A63 /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -295,11 +527,13 @@
 				DEVELOPMENT_TEAM = XDGUBBL4D4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = COP/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "We need your location to show nearby crimes even when the app is in the background.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to show nearby crimes.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -323,11 +557,13 @@
 				DEVELOPMENT_TEAM = XDGUBBL4D4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = COP/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "We need your location to show nearby crimes even when the app is in the background.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to show nearby crimes.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -363,6 +599,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		047A56C22C6351E000E92BA0 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.9.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		047A56C32C6351E000E92BA0 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 047A56C22C6351E000E92BA0 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 043E59C12C4D59EC00757A63 /* Project object */;
 }

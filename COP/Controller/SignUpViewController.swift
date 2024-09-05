@@ -18,38 +18,69 @@ class SignUpViewController: UIViewController{
     @IBOutlet weak var MobileNoTextFieldSignUp: UITextField!
     @IBOutlet weak var GeneratedOTPOutlet: UIButton!
     @IBOutlet weak var warningLabel: UIView!
+    @IBOutlet weak var conditionLabel: UILabel!
+    
+    let alertHelper = AlertManager.shared
     
     var numberIsGood : Bool = false
+    private var isAlertPresented = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        MobileNoTextFieldSignUp.delegate = self
+        setupTextField()
         GeneratedOTPOutlet.tintColor = UIColor.gray
-        
-        checkBox()
-        
+        setupCheckBox()
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissMyKeyboaed))
         view.addGestureRecognizer(tapGesture)
     }
     
-    func checkBox(){
-        let checkBoxSwitch = UISwitch(frame: CGRect(x: 10, y: 420, width: 3, height: 3))
-        
-        checkBoxSwitch.onTintColor = .clear
-        checkBoxSwitch.thumbTintColor = .white
-        checkBoxSwitch.tintColor = .lightGray
-        checkBoxSwitch.layer.borderColor = UIColor.lightGray.cgColor
-        checkBoxSwitch.layer.borderWidth = 1
-        checkBoxSwitch.layer.cornerRadius = 16
-        
-        checkBoxSwitch.addTarget(self, action: #selector(switchValueChanged(_:)), for: .valueChanged)
-        
-        self.view.addSubview(checkBoxSwitch)
-        
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.modalPresentationStyle = .fullScreen
+        navigationItem.hidesBackButton = false
+        navigationController?.isNavigationBarHidden = false
+    }
+
+    func setupTextField(){
+        MobileNoTextFieldSignUp.delegate = self
+        MobileNoTextFieldSignUp.autocorrectionType = .no
     }
     
+    @objc func backButtonTapped() {
+        self.navigationController?.popViewController(animated: true)
+     }
+    
+     private func setupCheckBox() {
+         let checkBoxSwitch = UISwitch()
+         styleCheckBox(checkBoxSwitch)
+         checkBoxSwitch.addTarget(self, action: #selector(switchValueChanged(_:)), for: .valueChanged)
+         self.view.addSubview(checkBoxSwitch)
+         setConstraintsForCheckBox(checkBox: checkBoxSwitch)
+     }
+
+     private func styleCheckBox(_ checkBoxSwitch: UISwitch) {
+         checkBoxSwitch.onTintColor = .clear // Background color when ON (clear to hide)
+         checkBoxSwitch.tintColor = .lightGray
+         checkBoxSwitch.thumbTintColor = .white
+         checkBoxSwitch.backgroundColor = .clear
+         checkBoxSwitch.layer.cornerRadius = checkBoxSwitch.frame.height / 2
+
+         checkBoxSwitch.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+     }
+
+     // Function to set constraints for the checkbox
+     private func setConstraintsForCheckBox(checkBox: UISwitch) {
+         checkBox.translatesAutoresizingMaskIntoConstraints = false
+
+         NSLayoutConstraint.activate([
+            checkBox.trailingAnchor.constraint(equalTo: conditionLabel.leadingAnchor , constant: -10), // Adjust leading anchor
+             checkBox.centerYAnchor.constraint(equalTo: conditionLabel.centerYAnchor) // Center vertically with agreeToTC
+         ])
+     }
+
+    
+    
     @objc func switchValueChanged(_ sender: UISwitch){
-        
         UserDefaults.standard.set(sender.isOn, forKey: "TermsAgreed")
     }
     
@@ -60,43 +91,67 @@ class SignUpViewController: UIViewController{
     @IBAction func GenerateOTPPressed(_ sender: UIButton) {
         
         let termsAgreed = UserDefaults.standard.bool(forKey: "TermsAgreed")
+        
+    
+        guard let phoneNumber = MobileNoTextFieldSignUp.text, !phoneNumber.isEmpty else {
+            
+            return
+        }
+     
+        if !termsAgreed {
+              
+              if let presentedVC = self.presentedViewController {
+                  presentedVC.dismiss(animated: false, completion: {
+                      self.showTermsAgreementAlert()
+                  })
+              } else {
+                  showTermsAgreementAlert()
+              }
+              return
+          }
+        
         if numberIsGood == false{
             warningLabel.isHidden = false
             Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
                 self.warningLabel.isHidden = true
             }
         }else{
+           
+            UserDefaults.standard.removeObject(forKey: "userPhoneNumber")
+            UserDefaults.standard.set(phoneNumber,forKey: "phoneNumberSignUp")
+            UserDefaults.standard.synchronize()
             
-        }
-        guard let phoneNumber = MobileNoTextFieldSignUp.text, !phoneNumber.isEmpty else {
-            showSnackBar(message: "Phone number cannot be empty")
-            return
-        }
-        if termsAgreed{
-            AuthService.shared.getOTP(phoneNumber: phoneNumber) { response, error in
+            UserData.shared.isSignup = true
+            let fullphoneNumber = "+91\(phoneNumber)"
+            
+            AuthService.shared.getOTP(phoneNumber: fullphoneNumber) { response, error in
                 DispatchQueue.main.async{
                     if let error = error {
-                        print("Error generating OTP: \(error.localizedDescription)")
-                        self.showSnackBar(message: "Failed to generate OTP: \(error.localizedDescription)")
+                        self.alertHelper.showAlert(on: self, message: "Failed to generate OTP: \(error.localizedDescription)")
                         return
                     }
-                    
                     if let response = response {
-                        print("OTP Response: \(response)")
-                        self.showSnackBar(message: response.msg)
-                    }else{
-                        print("No response received or data couldn't be decoded")
+                        self.performSegue(withIdentifier: K.signupSegue, sender: fullphoneNumber)
+                        self.alertHelper.showAlert(on: self, message: response.msg)
                     }
                 }
             }
-        }else{
-            showTermsAgreementAlert()
+            
         }
     }
-    func showSnackBar(message: String) {
-        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
+
+    func showTermsAgreementAlert(){
+        let alert = UIAlertController(title: "Terms Agreement Required", message: "You must agree to our terms and condition to proceed", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        present(alert,animated: true,completion: nil)
+    }
+}
+
+extension SignUpViewController: UITextFieldDelegate{
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -112,19 +167,6 @@ class SignUpViewController: UIViewController{
             GeneratedOTPOutlet.tintColor = UIColor.gray
         }
         
-        return true
-    }
-    func showTermsAgreementAlert(){
-        let alert = UIAlertController(title: "Terms Agreement Required", message: "You must agree to our terms and condition to proceed", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-        present(alert,animated: true,completion: nil)
-    }
-}
-
-extension SignUpViewController: UITextFieldDelegate{
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
         return true
     }
 }

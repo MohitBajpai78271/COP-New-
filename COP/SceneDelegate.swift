@@ -13,11 +13,53 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        
+                window = UIWindow(windowScene: windowScene)
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+
+                let isLoggedIn = UserDefaults.standard.bool(forKey: "isLoggedIn")
+                let initialViewController: UIViewController
+                
+                if isFirstLaunch() {
+                  performLogout()
+                }
+        
+                if isLoggedIn {
+                    // User is logged in, show TabBarViewController
+                    initialViewController = storyboard.instantiateViewController(withIdentifier: K.tabbarView)
+                } else {
+                    // User is not logged in, show SignInViewController
+                    initialViewController = storyboard.instantiateViewController(withIdentifier: K.signinView)//convert to singinviwcontroller
+                }
+                
+                window?.rootViewController = initialViewController
+                window?.makeKeyAndVisible()
     }
+
+    func isFirstLaunch() -> Bool {
+           let hasLaunchedKey = "hasLaunchedBefore"
+           let isFirstLaunch = !UserDefaults.standard.bool(forKey: hasLaunchedKey)
+
+           if isFirstLaunch {
+               UserDefaults.standard.set(true, forKey: hasLaunchedKey)
+               UserDefaults.standard.synchronize()
+           }
+
+           return isFirstLaunch
+       }
+
+       // Function to perform logout
+       func performLogout() {
+           UserDefaults.standard.removeObject(forKey: "isLoggedIn")
+           UserDefaults.standard.removeObject(forKey: "userToken")
+
+           let storyboard = UIStoryboard(name: "Main", bundle: nil)
+           let loginViewController = storyboard.instantiateViewController(withIdentifier: K.signinView)
+           window?.rootViewController = loginViewController
+           window?.makeKeyAndVisible()
+       }
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.

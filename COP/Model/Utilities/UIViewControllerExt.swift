@@ -43,6 +43,12 @@ extension UIViewController{
         }
     }
     
+    func showEmptyStateView(with message: String, in view: UIView){
+        print("show is called")
+        let emptyStateView = EmptyStateView(message: message)
+        emptyStateView.frame = view.bounds
+        view.addSubview(emptyStateView)
+    }
     
 }
 

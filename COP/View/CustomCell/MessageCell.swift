@@ -18,7 +18,6 @@ class MessageCell: UITableViewCell {
     private var backgroundviw :  UIView!
     
     private var activeLabel: UILabel!
-    //    private var timeLabelsStack: UIStackView!
     
     private let backgroundShapeLayer = CAShapeLayer()
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
@@ -28,7 +27,6 @@ class MessageCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        // Create name label
         
         backgroundviw = UIView()
         backgroundviw.translatesAutoresizingMaskIntoConstraints = false
@@ -41,61 +39,58 @@ class MessageCell: UITableViewCell {
         contentView.addSubview(backgroundviw)
         
         nameLabel = UILabel()
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false // Disables autoresizing
-        nameLabel.font = UIFont.systemFont(ofSize: 20) // Set desired font
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        nameLabel.font = UIFont.systemFont(ofSize: 20)
         nameLabel.textColor = UIColor.label
         backgroundviw.addSubview(nameLabel)
         
-        // Create phone number label
         phoneNumberLabel = UILabel()
         phoneNumberLabel.translatesAutoresizingMaskIntoConstraints = false
-        phoneNumberLabel.font = UIFont.systemFont(ofSize: 18) // Set desired font
+        phoneNumberLabel.font = UIFont.systemFont(ofSize: 18)
         phoneNumberLabel.textColor = UIColor.secondaryLabel
         backgroundviw.addSubview(phoneNumberLabel)
         
         
-        // Create place label
         placeLabel = UILabel()
         placeLabel.translatesAutoresizingMaskIntoConstraints = false
-        placeLabel.font = UIFont.systemFont(ofSize: 18) // Set desired font
+        placeLabel.font = UIFont.systemFont(ofSize: 18)
         placeLabel.textColor = UIColor.secondaryLabel
         backgroundviw.addSubview(placeLabel)
         
         activeLabel = UILabel()
         activeLabel.translatesAutoresizingMaskIntoConstraints = false
-        activeLabel.text = "Active" // Set the text
-        activeLabel.textColor = UIColor.systemBackground // Set text color to white
-        activeLabel.backgroundColor = UIColor.systemGreen // Set background color to green
+        activeLabel.text = "Active"
+        activeLabel.textColor = UIColor.systemBackground
+        activeLabel.backgroundColor = UIColor.systemGreen
         activeLabel.layer.cornerRadius = 5
         activeLabel.clipsToBounds = true
         backgroundviw.addSubview(activeLabel)
         
         startTimeLabel = UILabel()
         startTimeLabel.translatesAutoresizingMaskIntoConstraints = false
-        startTimeLabel.text = "Start Time:" // Set the text
-        startTimeLabel.font = UIFont.systemFont(ofSize: 12) // Set desired font size (optional)
+        startTimeLabel.text = "Start Time:"
+        startTimeLabel.font = UIFont.systemFont(ofSize: 12)
         startTimeLabel.textColor = UIColor.secondaryLabel
         backgroundviw.addSubview(startTimeLabel)
         
         endTimeLabel = UILabel()
         endTimeLabel.translatesAutoresizingMaskIntoConstraints = false
-        endTimeLabel.text = "End Time:" // Set the text
-        endTimeLabel.font = UIFont.systemFont(ofSize: 12) // Set desired font size (optional)
+        endTimeLabel.text = "End Time:"
+        endTimeLabel.font = UIFont.systemFont(ofSize: 12)
         endTimeLabel.textColor = UIColor.secondaryLabel
         backgroundviw.addSubview(endTimeLabel)
         
-        setupConstraints() // Call method to define layout constraints
+        setupConstraints()
     }
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let path = createCustomPath(in: bounds) // Replace with your custom path creation logic
+        let path = createCustomPath(in: bounds)
         backgroundShapeLayer.path = path
     }
     
     private func createCustomPath(in rect: CGRect) -> CGPath {
-        // Implement your custom path creation logic here based on the desired shape
-        let path = UIBezierPath(roundedRect: rect, cornerRadius: 5) // Adjust corner radius as needed
+        let path = UIBezierPath(roundedRect: rect, cornerRadius: 5)
         return path.cgPath
     }
     
@@ -131,25 +126,22 @@ class MessageCell: UITableViewCell {
             endTimeLabel.topAnchor.constraint(equalTo: activeLabel.bottomAnchor, constant: 8),
             endTimeLabel.trailingAnchor.constraint(equalTo: backgroundviw.trailingAnchor, constant: -16),
             endTimeLabel.bottomAnchor.constraint(lessThanOrEqualTo: backgroundviw.bottomAnchor, constant: -16)
-            //        contentView.bottomAnchor.constraint(equalTo: endTimeLabel.bottomAnchor, constant: 8),
             
         ])
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        //      fatalError("init(coder:) is not supported")
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
-        // Configure the view for the selected state
+
     }
     
 }
