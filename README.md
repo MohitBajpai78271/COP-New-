@@ -58,11 +58,11 @@ The **COP** iOS application is designed for the Delhi Police to facilitate crime
 Below are some screenshots of the COP app showing various screens:
 | Screen            | Description                       |
 |-------------------|-----------------------------------|
-| <img src="https://github.com/user-attachments/assets/6141293f-5053-4067-b866-522d96de1cf1" width="150"/> | **Sign In**: Enter phone number and request OTP. |
-| <img src="https://github.com/user-attachments/assets/5c1ca78f-38e3-4012-8c84-dc4722e107f7" width="150"/> | **Sign Up**: Enter phone number to create a new account. |
-| <img src="https://github.com/user-attachments/assets/2771e4f5-8468-4f94-a579-54a0f6820fce" width="150"/> <img src="https://github.com/user-attachments/assets/0c3d3bdd-da1f-4cc3-b210-efe756960e31" width="150"/> | **Enter Details For SignUp**: Enter asked details to sign up to create new user. |
-| <img src="https://github.com/user-attachments/assets/2771e4f5-8468-4f94-a579-54a0f6820fce" width="150"/> | **OTP Verification**: Enter the OTP received to verify the phone number. |
-| <img src="https://github.com/user-attachments/assets/b8439a3c-389d-4fef-af3d-ab2f0acf4572" width="150"/> <img src="https://github.com/user-attachments/assets/3edb2245-9043-4e51-b823-6e305905212a" width="150"/> | **Home Tab**: Map displaying crime data and filter options. |
-| <img src="https://github.com/user-attachments/assets/66e15e4a-7354-4509-9102-9f4d533cc807" width="150"/> | **Admin Tab**: Live tracking of constables by Admins, Can't show secret details. |
-| <img src="https://github.com/user-attachments/assets/ff03185a-16a7-43ba-9f74-813a627153fb" width="150"/> | **Profile Tab**: View and edit personal details such as name, phone number, and address. |
-| <img src="https://github.com/user-attachments/assets/ff03185a-16a7-43ba-9f74-813a627153fb" width="150"/> | **Settings Tab**: Check App details, Logout. 
+|<p align="center"> <img src="https://github.com/user-attachments/assets/6141293f-5053-4067-b866-522d96de1cf1" width="180"/> </p>| **Sign In**: Enter phone number and request OTP. |
+| <img src="https://github.com/user-attachments/assets/5c1ca78f-38e3-4012-8c84-dc4722e107f7" width="180"/> | **Sign Up**: Enter phone number to create a new account. |
+| <img src="https://github.com/user-attachments/assets/2771e4f5-8468-4f94-a579-54a0f6820fce" width="180"/> <img src="https://github.com/user-attachments/assets/0c3d3bdd-da1f-4cc3-b210-efe756960e31" width="150"/> | **Enter Details For SignUp**: Enter asked details to sign up to create new user. |
+| <img src="https://github.com/user-attachments/assets/2771e4f5-8468-4f94-a579-54a0f6820fce" width="180"/> | **OTP Verification**: Enter the OTP received to verify the phone number. |
+| <img src="https://github.com/user-attachments/assets/b8439a3c-389d-4fef-af3d-ab2f0acf4572" width="180"/> <img src="https://github.com/user-attachments/assets/3edb2245-9043-4e51-b823-6e305905212a" width="150"/> | **Home Tab**: Map displaying crime data and filter options. |
+| <img src="https://github.com/user-attachments/assets/66e15e4a-7354-4509-9102-9f4d533cc807" width="180"/> | **Admin Tab**: Live tracking of constables by Admins, Can't show secret details. |
+| <img src="https://github.com/user-attachments/assets/ff03185a-16a7-43ba-9f74-813a627153fb" width="180"/> | **Profile Tab**: View and edit personal details such as name, phone number, and address. |
+| <img src="https://github.com/user-attachments/assets/ff03185a-16a7-43ba-9f74-813a627153fb" width="180"/> | **Settings Tab**: Check App details, Logout. 
