@@ -50,6 +50,7 @@ The **COP** iOS application is designed for the Delhi Police to facilitate crime
 - **Swift**: Frontend built using UIKit.
 - **Node.js**: By team members, Backend for handling user authentication and data storage.
 - **Alamofire**: Networking library for API calls.
+- **CoreLocation**: For current Location of user.
 - **MapKit**: Used for displaying crime data on a map with filtering options.
 - **JSON**: Handling data exchange between frontend and backend.
 
