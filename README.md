@@ -33,16 +33,6 @@ The **COP** iOS application is designed for the Delhi Police to facilitate crime
   - **Profile (Tab 4)**: Manage user details like name, phone number, date of birth, and address.
   - **Settings (Tab 3)**: To Log out or checking details.
 
-### View Controllers
-
-- **SignInViewController**: Handles user login with a phone number input and a button to generate OTP.
-- **SignUpViewController**: Facilitates user registration with a phone number input and a button to generate OTP.
-- **OTPViewController**: Manages OTP verification, sending, and verifying the OTP for both SignIn and SignUp flows.
-- **Tab Bar Controller**: Once logged in, users can access different functionalities via four tabs:
-  1. **Home**
-  2. **Admin**
-  3. **Profile**
-  4. **Settings**
 
 ### Technology Stack
 
