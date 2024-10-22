@@ -28,12 +28,12 @@ The **COP** iOS application is designed for the Delhi Police to facilitate crime
 
 | **Screen**            | **Description**                       |
 |-----------------------|---------------------------------------|
-| <img src="https://github.com/user-attachments/assets/6141293f-5053-4067-b866-522d96de1cf1" width="400"/> | **Sign In**: Enter phone number and request OTP.<br> - **Feature**: Secure OTP-based login system integrated with backend. |
-| <img src="https://github.com/user-attachments/assets/5c1ca78f-38e3-4012-8c84-dc4722e107f7" width="400"/> | **Sign Up**: Create a new account using a phone number.<br> - **Feature**: User-friendly sign-up interface with real-time validation. |
-| <img src="https://github.com/user-attachments/assets/2771e4f5-8468-4f94-a579-54a0f6820fce" width="400"/> | **Enter Details For SignUp**: Provide user details to sign up.<br> - **Feature**: Form validation with secure data submission. |
-| <img src="https://github.com/user-attachments/assets/2771e4f5-8468-4f94-a579-54a0f6820fce" width="400"/> | **OTP Verification**: Verify phone number with OTP.<br> - **Feature**: Backend-integrated OTP verification. |
-| <img src="https://github.com/user-attachments/assets/b8439a3c-389d-4fef-af3d-ab2f0acf4572" width="400"/> | **Home Tab**: View crime data on a map.<br> - **Feature**: Interactive map with crime filters using MapKit. |
-| <img src="https://github.com/user-attachments/assets/66e15e4a-7354-4509-9102-9f4d533cc807" width="400"/> | **Admin Tab**: Track constables in real-time.<br> - **Feature**: Live constable tracking with CoreLocation. |
-| <img src="https://github.com/user-attachments/assets/ff03185a-16a7-43ba-9f74-813a627153fb" width="400"/> | **Profile Tab**: Edit and view personal details.<br> - **Feature**: Editable profile fields synced with backend. |
-| <img src="https://github.com/user-attachments/assets/8c4d8e15-ce95-413c-a8d4-c35635579aef" width="400"/> | **Settings Tab**: Manage app settings and log out.<br> - **Feature**: Secure logout functionality. |
+| <img src="https://github.com/user-attachments/assets/bdfe98d0-983e-4f5a-ae9c-3f5bf7fcb5fd" width="400"/> | **Sign In**: Enter phone number and request OTP.<br> - **Feature**: Secure OTP-based login system integrated with backend. |
+| <img src="https://github.com/user-attachments/assets/4092e692-a0d4-4a7f-8afc-b660b8f4e2db" width="400"/> | **Sign Up**: Create a new account using a phone number.<br> - **Feature**: User-friendly sign-up interface with real-time validation. |
+| <img src="https://github.com/user-attachments/assets/59b5a75e-0e92-4224-bef8-08295522d73a" width="400"/> | **Enter Details For SignUp**: Provide user details to sign up.<br> - **Feature**: validation with secure data submission. |
+| <img src="https://github.com/user-attachments/assets/2a4693a2-a757-4253-a71d-544e74dc856b" width="400"/> | **OTP Verification**: Verify phone number with OTP.<br> - **Feature**: Backend-integrated OTP verification. |
+| <img src= "https://github.com/user-attachments/assets/01c0777a-f666-485a-b0ed-eb5288471263" width="400"/> | **Home Tab**: View crime data on a map.<br> - **Feature**: Interactive map with crime filters using MapKit. |
+| <img src="https://github.com/user-attachments/assets/ab7d94a7-a56f-4f76-8f0f-279a7e505d57" width="400"/> | **Admin Tab**: Track constables in real-time.<br> - **Feature**: Live constable tracking with CoreLocation. |
+| <img src="https://github.com/user-attachments/assets/6d2f43ac-db4c-4de1-99d1-b173b793cc73" width="400"/> | **Profile Tab**: Edit and view personal details.<br> - **Feature**: Editable profile fields synced with backend. |
+| <img src="https://github.com/user-attachments/assets/4906294d-db61-484b-b51c-933bf4a45d9e" width="400"/> | **Settings Tab**: Manage app settings and log out.<br> - **Feature**: Secure logout functionality. |
 
