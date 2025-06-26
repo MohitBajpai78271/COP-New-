@@ -13,6 +13,10 @@ The **COP** iOS application is designed for the Delhi Police to facilitate crime
   - **Admin (Tab 2)**: Track live location, time and other details of Juniors.
   - **Profile (Tab 4)**: Manage user details like name, phone number, date of birth, and address.
   - **Settings (Tab 3)**: To Log out or checking details.
+  - 
+  - - **DBSCAN Patrol Zone Suggestions**  
+  - Clusters crime incidents within a 400 m radius  
+  - Highlights top patrol hotspots  
 
 
 ### Technology Stack
@@ -23,6 +27,7 @@ The **COP** iOS application is designed for the Delhi Police to facilitate crime
 - **CoreLocation**: For current Location of user.
 - **MapKit**: Used for displaying crime data on a map with filtering options.
 - **JSON**: Handling data exchange between frontend and backend.
+- **ML Model**: Python (scikit-learn’s, DBSCAN, FastAPI) 
 
 ## COP App Screenshots
 
@@ -36,5 +41,6 @@ The **COP** iOS application is designed for the Delhi Police to facilitate crime
 | <img src="https://github.com/user-attachments/assets/ab1449fe-c341-4c7d-95f0-0f2292f80d9b" width="400"/> | **Admin Tab**: Track constables in real-time.<br> - **Feature**: Live constable tracking with CoreLocation. |
 | <img src="https://github.com/user-attachments/assets/6d2f43ac-db4c-4de1-99d1-b173b793cc73" width="400"/> | **Profile Tab**: Edit and view personal details.<br> - **Feature**: Editable profile fields synced with backend. |
 | <img src="https://github.com/user-attachments/assets/4906294d-db61-484b-b51c-933bf4a45d9e" width="400"/> | **Settings Tab**: Manage app settings and log out.<br> - **Feature**: Secure logout functionality. |
+| <img src="https://github.com/user-attachments/assets/8b03a4c4-5dbb-4e67-8bd2-be972566fdb7" width="400"/> | **Crime Hotspots**: View Crime Hotspots in Map.<br> - **Feature**: Provide best patrol locations for police to reduce crime rates.|
 
 
