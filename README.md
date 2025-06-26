@@ -1,8 +1,8 @@
- # COP (Constable On Patrol) iOS Application
+ # COP (Constable On Patrol) iOS App with ML integration 
 
 ## Overview
 
-The **COP** iOS application is designed for the Delhi Police to facilitate crime monitoring and reporting. It allows users to sign up, log in, and verify their identity. The app features a tab bar navigation system, each tab corresponding to different functionalities for crime tracking in map based on place,datea and crime type ,Live tracking of junior police officers location,time and other stuff by Admins, user profile, and more.
+The **COP** Mobile application is designed for the Delhi Police to facilitate crime monitoring and reporting. It allows users to verify their identity through otp authentication. The app features a tab bar navigation system, each tab corresponding to different functionalities for crime tracking in map based on place,datea and crime type ,Live tracking of junior police officers location,time Along with a Machine learning model for predicting crime hotspots providing patrol locations for police and other stuff by Admins, user profile, and more.
 
 ### Features
 
@@ -13,10 +13,8 @@ The **COP** iOS application is designed for the Delhi Police to facilitate crime
   - **Admin (Tab 2)**: Track live location, time and other details of Juniors.
   - **Profile (Tab 4)**: Manage user details like name, phone number, date of birth, and address.
   - **Settings (Tab 3)**: To Log out or checking details.
-  - 
-  - - **DBSCAN Patrol Zone Suggestions**  
-  - Clusters crime incidents within a 400 m radius  
-  - Highlights top patrol hotspots  
+  
+- **DBSCAN Patrol Zone Suggestions**: Clusters crime incidents within a 400 m radius and Highlights top patrol hotspots. 
 
 
 ### Technology Stack
