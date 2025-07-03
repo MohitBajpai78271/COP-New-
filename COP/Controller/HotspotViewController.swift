@@ -1,15 +1,8 @@
 import UIKit
 import MapKit
 
-
-
 class HotspotViewController: UIViewController, MKMapViewDelegate {
-    // Replace with your real ngrok or deployed URL
     let baseURL = ""
-
-    // ← You need to define this:
-    // If your FastAPI endpoint is the one that takes a raw source_url, point
-    // it at your crime‐data JSON endpoint.
     let sourceURL = ""
     private let mapView = MKMapView()
     private var hotspotList: [Hotspot] = []
@@ -34,7 +27,6 @@ class HotspotViewController: UIViewController, MKMapViewDelegate {
         view.backgroundColor = .white
         displayAllRegions()
            
-           // Setup navigation bar appearance
            title = "Crime Hotspots"
            navigationItem.rightBarButtonItem = UIBarButtonItem(
                barButtonSystemItem: .done,
@@ -198,48 +190,15 @@ class HotspotViewController: UIViewController, MKMapViewDelegate {
         }
 
         do {
-          let decoded = try JSONDecoder().decode(HotspotsResponse.self, from: data)
+            let decoded = try JSONDecoder().decode(HotspotsResponse.self, from: data)
           DispatchQueue.main.async {
-            self.updateUI(with: decoded.hotspots)
+              self.updateUI(with: decoded.results)
           }
         } catch {
           print("Decoding error:", error)
         }
       }
       .resume()
-    }
-
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard let ann = annotation as? HotspotAnnotation else { return nil }
-
-        let identifier = "hotspotMarker"
-        let markerView: MKMarkerAnnotationView
-        if let dequeued = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKMarkerAnnotationView {
-            markerView = dequeued
-            markerView.annotation = ann
-        } else {
-            markerView = MKMarkerAnnotationView(annotation: ann, reuseIdentifier: identifier)
-            markerView.canShowCallout = true
-            // show the cluster ID as a glyph
-//            markerView.glyphText = "\(ann.cluster)"
-//            markerView.titleVisibility = .visible
-//            markerView.subtitleVisibility = .visible
-        }
-
-        // pick color by index
-        if let idx = hotspotList.firstIndex(where: {
-            $0.lat == ann.coordinate.latitude && $0.long == ann.coordinate.longitude
-        }) {
-            let color = annotationColors[idx % annotationColors.count]
-            markerView.markerTintColor = color
-        } else {
-            markerView.markerTintColor = .gray
-        }
-
-        // make it bigger
-        markerView.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
-
-        return markerView
     }
 
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
@@ -258,46 +217,82 @@ class HotspotViewController: UIViewController, MKMapViewDelegate {
             return renderer
         }
     }
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard let ann = annotation as? HotspotAnnotation else { return nil }
+        let identifier = "hotspotMarker"
+        let markerView = (mapView.dequeueReusableAnnotationView(
+            withIdentifier: identifier
+        ) as? MKMarkerAnnotationView) ?? MKMarkerAnnotationView(annotation: ann, reuseIdentifier: identifier)
+
+        markerView.annotation = ann
+        markerView.canShowCallout = true
+
+
+        let detailLabel = UILabel()
+        detailLabel.numberOfLines = 0
+        detailLabel.font = .systemFont(ofSize: 12)
+        detailLabel.text = ann.suggestionText
+        markerView.detailCalloutAccessoryView = detailLabel
+
+        // Choose marker color, scaling, etc. as you had before...
+                if let idx = hotspotList.firstIndex(where: {
+                    $0.centroid_lat == ann.coordinate.latitude && $0.centroid_lon == ann.coordinate.longitude
+                }) {
+                    let color = annotationColors[idx % annotationColors.count]
+                    markerView.markerTintColor = color
+                } else {
+                    markerView.markerTintColor = .gray
+                }
+        
+                markerView.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+        return markerView
+    }
+
     
     func updateUI(with hotspots: [Hotspot]) {
-    
-        let sorted = hotspots.sorted { $0.crime_count > $1.crime_count }
-
-        self.hotspotList = sorted
-
+        hotspotList = hotspots.sorted { $0.crime_count > $1.crime_count }
         mapView.removeAnnotations(mapView.annotations)
 
-        for (i, h) in sorted.enumerated() {
-            let annotation = HotspotAnnotation(
-                lat: h.lat,
-                long: h.long,
-                crimeCount: h.crime_count
+        for (i, hotspot) in hotspotList.enumerated() {
+            let ann = HotspotAnnotation(
+                lat: hotspot.centroid_lat,
+                long: hotspot.centroid_lon,
+                crimeCount: hotspot.crime_count,
+                suggestion: hotspot.suggestion.suggestion
             )
-            annotation.title = "Patrol \(i + 1)"
-            annotation.subtitle = "\(h.crime_count) crimes"
-            mapView.addAnnotation(annotation)
+            ann.title = "Patrol \(i+1) — \(hotspot.crime_count) crimes"
+            mapView.addAnnotation(ann)
         }
     }
 
 
+
+}
+
+struct PatrolSuggestion: Codable {
+    let summary: String
+    let suggestion: String
 }
 
 struct Hotspot: Codable {
-    let cluster: Int
-    let lat: Double
-    let long: Double
+    let centroid_lat: Double
+    let centroid_lon: Double
     let crime_count: Int
+    let suggestion: PatrolSuggestion
 }
 
 struct HotspotsResponse: Codable {
-    let hotspots: [Hotspot]
+    let results: [Hotspot]
 }
+
 
 class HotspotAnnotation: MKPointAnnotation {
     let crimeCount: Int
-    
-    init(lat: Double, long: Double,  crimeCount: Int) {
+    let suggestionText: String
+
+    init(lat: Double, long: Double, crimeCount: Int, suggestion: String) {
         self.crimeCount = crimeCount
+        self.suggestionText = suggestion
         super.init()
         coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
         subtitle = "\(crimeCount) crimes"
